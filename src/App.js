@@ -3,7 +3,7 @@ import "./App.css";
 import MovieCard from "./MovieCard";
 import SearchIcon from "./search.svg";
 
-const API_URL = "http://www.omdbapi.com/?i=tt3896198&apikey=c71f08e0";
+const API_URL = "https://www.omdbapi.com/?i=tt3896198&apikey=c71f08e0";
 //here we are using an API so we have to load this api at the time where the page first loaded
 // so we are going to use the useEffect hook for this
 // so first step in building this api driven app is to use a useEffect hook
