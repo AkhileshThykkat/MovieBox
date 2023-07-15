@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 import "./App.css";
 import MovieCard from "./MovieCard";
 import SearchIcon from "./search.svg";
@@ -14,6 +14,7 @@ const API_URL = "https://www.omdbapi.com/?i=tt3896198&apikey=c71f08e0";
 function App() {
   const [movies, setMovies] = useState([]);
   const [searchTerm, setSearchTerm] = useState("Batman");
+  const inputRef = useRef(null)
   // search movies is the function which is used to fetch the movies
   const searchMovies = async (Title) => {
     const response = await fetch(`${API_URL}&s=${Title}`);
@@ -22,7 +23,7 @@ function App() {
     setMovies(data.Search);
   };
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     //over here we will be needing a function which gets data from the api
     searchMovies(searchTerm);
   }, [searchTerm]);
@@ -32,13 +33,17 @@ function App() {
       <div className="search">
         <input
           placeholder="Search for movies"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
+          // value={searchTerm}
+          ref={inputRef}
         />
         <img
           src={SearchIcon}
           alt="search"
-          onClick={() => searchMovies(searchTerm)}
+          onClick={() => {
+            setSearchTerm(inputRef.current.value);
+            searchMovies(searchTerm);
+           
+          }}
         />
       </div>
       {movies?.length > 0 ? (
